@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Name: Interview-AI
+Version: 0.1
+Requires-Dist: langchain
+Requires-Dist: langgraph
+Requires-Dist: langchain-mistralai
+Requires-Dist: python-dotenv
+Requires-Dist: scikit-learn
+Requires-Dist: nltk
+Requires-Dist: pdfminer.six
+Requires-Dist: streamlit

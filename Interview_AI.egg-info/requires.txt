@@ -1,0 +1,8 @@
+langchain
+langgraph
+langchain-mistralai
+python-dotenv
+scikit-learn
+nltk
+pdfminer.six
+streamlit
