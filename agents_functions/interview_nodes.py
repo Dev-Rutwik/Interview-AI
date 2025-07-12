@@ -8,6 +8,8 @@ def cluster_resume(state: Dict):
     return {"clusters": clusters, "current_cluster": 0}
 
 def generate_question(state: "InterviewState"):
+    if state["current_cluster"] == -1:
+        return {}
     content = state["clusters"][state["current_cluster"]]
     question = generate_initial_question(content)
     return {"current_question": question, "follow_up_needed": True}
@@ -16,6 +18,10 @@ def get_user_response(state: Dict):
     print(f"\\nQuestion: {state['current_question']}")
     response = input("Your answer: ")
     return {"user_response": response}
+
+def should_ask_followup(state):
+    return state.get("follow_up_needed", False)
+
 
 def generate_followup(state: "InterviewState"):
     if not state["follow_up_needed"]:

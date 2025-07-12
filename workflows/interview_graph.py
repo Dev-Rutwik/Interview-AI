@@ -1,19 +1,11 @@
-from typing import TypedDict, Dict, Annotated
 from langgraph.graph import StateGraph
-from langgraph.channels import LastValue
 from agents_functions import interview_nodes  
-
-class InterviewState(TypedDict):
-    resume_text: str
-    clusters: Dict[int, list]
-    current_cluster: int
-    current_question: Annotated[str, LastValue]
-    user_response: str
-    follow_up_needed: bool
+from schema.types import InterviewState
 
 def build_interview_flow():
     workflow = StateGraph(InterviewState)
 
+    # Add nodes
     workflow.add_node("cluster_resume", interview_nodes.cluster_resume)
     workflow.add_node("generate_question", interview_nodes.generate_question)
     workflow.add_node("get_user_response", interview_nodes.get_user_response)
@@ -21,23 +13,30 @@ def build_interview_flow():
     workflow.add_node("move_to_next", interview_nodes.move_to_next_cluster)
     workflow.add_node("end", interview_nodes.end_interview)
 
-    # Edges
+    # Define edges
     workflow.add_edge("cluster_resume", "generate_question")
     workflow.add_edge("generate_question", "get_user_response")
     workflow.add_edge("get_user_response", "generate_followup")
-    workflow.add_edge("generate_followup", "get_user_response")
 
-    # Branching based on followup
+    # ✅ Conditional branching from follow-up:
     workflow.add_conditional_edges(
         "generate_followup",
-        interview_nodes.should_continue,
+        interview_nodes.should_ask_followup,
         {
-            True: "move_to_next",
-            False: "end"
+            True: "get_user_response",   # Ask follow-up question
+            False: "move_to_next",       # Move to next cluster
         }
     )
 
-    workflow.add_edge("move_to_next", "generate_question")
+    # ✅ Conditional branching after moving to next cluster
+    workflow.add_conditional_edges(
+        "move_to_next",
+        interview_nodes.should_continue,
+        {
+            True: "generate_question",   # Next main question
+            False: "end"                 # Done!
+        }
+    )
 
     workflow.set_entry_point("cluster_resume")
     workflow.set_finish_point("end")
