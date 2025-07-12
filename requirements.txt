@@ -1,7 +1,0 @@
-langchain
-pydantic
-python-docx
-pdfminer.six
-tiktoken
-python-dotenv
-streamlit
