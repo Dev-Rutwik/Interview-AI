@@ -1,4 +1,5 @@
-🤖 AI-Powered Interviewer
+# 🤖 AI-Powered Interviewer
+
 A command-line based AI Interviewer that conducts interactive interviews by parsing a candidate's PDF resume, generating tailored technical questions, and dynamically asking follow-up questions — all using LLMs and multi-agent orchestration.
 
 🚀 Features
@@ -28,7 +29,7 @@ bash
 Copy
 Edit
 # Clone the repository
-git clone https://github.com/your-username/Interview-AI.git
+git clone https://github.com/dev-Rutwik/Interview-AI.git
 cd Interview-AI
 
 # Create virtual environment
@@ -43,7 +44,7 @@ Create a .env file in the root directory to securely store your API key:
 env
 Copy
 Edit
-OPENAI_API_KEY=your-openai-api-key
+MISTRAL_API_KEY=your-MISTRAL_API_KEY
 🧪 How to Use (CLI Version)
 Place your resume PDF in the root directory.
 
@@ -68,24 +69,6 @@ Follow-Up Engine: Responds to answers with tailored follow-up questions.
 
 State Management: All progress is tracked using a shared InterviewState.
 
-📁 Project Structure
-graphql
-Copy
-Edit
-Interview-AI/
-├── app/
-│   ├── cli.py               # CLI launcher
-│   └── web.py               # (Optional Streamlit app)
-├── agents_functions/
-│   └── interview_nodes.py   # All agent functions
-├── workflows/
-│   └── interview_graph.py   # LangGraph flow
-├── schema/
-│   └── types.py             # InterviewState schema
-├── utils/
-│   └── resume_parser.py     # PDF extraction utils
-├── requirements.txt
-└── README.md
 🧩 Example Output
 bash
 Copy
