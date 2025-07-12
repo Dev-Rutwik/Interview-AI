@@ -13,6 +13,8 @@ A command-line based AI Interviewer that conducts interactive interviews by pars
 
 📚 Modular & Extensible — Easy to add new nodes or logic for other interview formats.
 
+🎯 Video Sample is Added for Visual Idea
+
 🛠️ Tech Stack
 Python 3.10+
 
