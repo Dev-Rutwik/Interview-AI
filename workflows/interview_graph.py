@@ -5,7 +5,7 @@ from schema.types import InterviewState
 def build_interview_flow():
     workflow = StateGraph(InterviewState)
 
-    # Add nodes
+    # Nodes
     workflow.add_node("cluster_resume", interview_nodes.cluster_resume)
     workflow.add_node("generate_question", interview_nodes.generate_question)
     workflow.add_node("get_user_response", interview_nodes.get_user_response)
@@ -13,28 +13,26 @@ def build_interview_flow():
     workflow.add_node("move_to_next", interview_nodes.move_to_next_cluster)
     workflow.add_node("end", interview_nodes.end_interview)
 
-    # Define edges
+    # Edges
     workflow.add_edge("cluster_resume", "generate_question")
     workflow.add_edge("generate_question", "get_user_response")
     workflow.add_edge("get_user_response", "generate_followup")
 
-    # ✅ Conditional branching from follow-up:
     workflow.add_conditional_edges(
         "generate_followup",
         interview_nodes.should_ask_followup,
         {
-            True: "get_user_response",   # Ask follow-up question
-            False: "move_to_next",       # Move to next cluster
+            True: "get_user_response", 
+            False: "move_to_next",      
         }
     )
 
-    # ✅ Conditional branching after moving to next cluster
     workflow.add_conditional_edges(
         "move_to_next",
         interview_nodes.should_continue,
         {
-            True: "generate_question",   # Next main question
-            False: "end"                 # Done!
+            True: "generate_question", 
+            False: "end"      
         }
     )
 

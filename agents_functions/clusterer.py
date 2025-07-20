@@ -22,4 +22,8 @@ def cluster_resume_sentences(resume_text):
     clusters = {}
     for i, label in enumerate(kmeans.fit_predict(X)):
         clusters.setdefault(label, []).append(sentences[i])
+    # print(f"The cluster one is {clusters[0]}")
+    # print(f"The cluster two is {clusters[1]}")
+    # print(f"The cluster three is {clusters[2]}")
+
     return clusters
